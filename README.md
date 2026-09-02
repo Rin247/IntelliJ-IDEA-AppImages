@@ -14,17 +14,17 @@ AppImages are directly created from `.tar.gz` builds and are not decompiled or m
 
 ## Installation
 
+### Manual
+
+Can be directly downloaded from Github Releases and integrated using tools like AppImageLauncher.
+
 ### Pho
 
-This command requires [Pho](https://github.com/zyrouge/pho) to be installed.
+[Pho](https://github.com/zyrouge/pho) is a cross-distro package manager script that can install this AppImage:
 
 ```bash
 pho install github --id intellij-idea-community Rin247/intellij-idea-appimages
 ```
-
-### Manual
-
-Can be directly downloaded from Github Releases and integrated using tools like AppImageLauncher.
 
 ## Minimum distribution support
 
@@ -36,3 +36,7 @@ Two options are provided for Arch users:
 
 - Run the distributed AppImage directly on Arch. AppImages produced by this project bundle required libraries so they should run on Arch Linux; use AppImageLauncher or run the file directly (make it executable and execute).
 - Build a native Arch package from JetBrains' upstream tarball. See [Arch's wiki](https://wiki.archlinux.org/title/IntelliJ_IDEA) for `intellij-idea-community-edition` in the AUR.
+
+## Building locally
+
+There are helper scripts in `scripts/` that build AppImages in a containerized environment. The `scripts/build-podman.sh` script uses an Ubuntu 22.04 container by default to produce AppImages. See the scripts for details.
