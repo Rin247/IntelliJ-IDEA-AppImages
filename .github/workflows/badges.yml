@@ -24,19 +24,12 @@ jobs:
                           repo: context.repo.repo,
                       });
                       const latest = releases.find(x => !x.draft && !x.prerelease);
-                      const prerelease = releases.find(x => !x.draft && x.prerelease);
                       const outputDir = p.join(process.cwd(), "dist-badges");
                       await fs.mkdir(outputDir, { recursive: true });
                       await fs.writeFile(p.join(outputDir, "badge-latest.json"), JSON.stringify({
                           schemaVersion: 1,
                           label: "latest",
                           message: latest?.tag_name ?? "unknown",
-                          color: "blue",
-                      }));
-                      await fs.writeFile(p.join(outputDir, "badge-prerelease.json"), JSON.stringify({
-                          schemaVersion: 1,
-                          label: "latest (pre-release)",
-                          message: prerelease?.tag_name ?? "unknown",
                           color: "blue",
                       }));
 
