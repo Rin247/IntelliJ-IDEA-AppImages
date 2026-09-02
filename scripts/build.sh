@@ -2,6 +2,11 @@
 
 set -eu
 
+# Minimum supported build distro: Ubuntu 22.04 (jammy)
+# This script assembles an AppDir from the IntelliJ IDEA tarball and uses
+# appimagetool to create an AppImage. It is expected to run inside a clean
+# Ubuntu 22.04+ container/chroot to produce portable AppImages.
+
 curl_ua="Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/118.0"
 
 self=$(readlink -f "$0")
@@ -18,6 +23,16 @@ echo "IntelliJ IDEA Version: ${app_version}"
 
 app_title="IntelliJ IDEA Community"
 app_name="intellij-idea"
+
+# Tools required in the build environment
+reqs=(curl tar convert file)
+for cmd in "${reqs[@]}"; do
+    if ! command -v ${cmd} >/dev/null 2>&1; then
+        echo "error: required command '${cmd}' not found in PATH"
+        echo "Please install it in the build environment (this script expects Ubuntu 22.04+)."
+        exit 1
+    fi
+done
 
 appimagetool_path="${artifacts_dir}/appimagetool.AppImage"
 appimagetool_app_dir="${artifacts_dir}/appimagetool.AppDir"
@@ -45,8 +60,10 @@ else
 fi
 
 app_dir="${artifacts_dir}/${app_name}.AppDir"
-archive_file="${artifacts_dir}/ideaIC-${app_version}-linux.tar.gz"
-download_url="https://download.jetbrains.com/idea/ideaIC-${app_version}.tar.gz"
+archive_file="${artifacts_dir}/idea-${app_version}.tar.gz"
+# JetBrains dropped the "IC" prefix from the Linux tarball name; Community
+# and Ultimate now share the same `idea-<version>.tar.gz` distribution.
+download_url="https://download.jetbrains.com/idea/idea-${app_version}.tar.gz"
 
 if ! [ -d "${app_dir}" ]; then
     if ! [ -f "${archive_file}" ]; then
@@ -59,6 +76,9 @@ if ! [ -d "${app_dir}" ]; then
 
     echo "Extracting ${archive_file}"
     mkdir "intellij-idea"
+    # Top-level directory inside the tarball changed from
+    # `idea-IC-<version>/` to `idea-IU-<build>/`. Strip the first path
+    # component so the AppDir layout stays the same.
     tar -xf "${archive_file}" --strip-components=1 -C "intellij-idea"
     mv "intellij-idea" "${app_dir}"
     echo "Created ${app_dir}"
