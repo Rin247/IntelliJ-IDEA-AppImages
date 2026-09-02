@@ -18,14 +18,6 @@ AppImages are directly created from `.tar.gz` builds and are not decompiled or m
 
 Can be directly downloaded from Github Releases and integrated using tools like AppImageLauncher.
 
-### Pho
-
-[Pho](https://github.com/zyrouge/pho) is a cross-distro package manager script that can install this AppImage:
-
-```bash
-pho install github --id intellij-idea-community Rin247/intellij-idea-appimages
-```
-
 ## Minimum distribution support
 
 This project builds AppImages using an Ubuntu 22.04 (jammy) chroot/container as the minimum supported build environment. Support for older distributions (Ubuntu 20.04 and earlier) has been removed.

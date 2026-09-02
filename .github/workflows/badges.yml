@@ -34,11 +34,11 @@ jobs:
                       }));
 
             - name: 🚀 Push badges
-              uses: zyrouge/github-push-action@v1
-              with:
-                  local-username: "[actions] generate-badges"
-                  directory: dist-badges
-                  branch: dist-badges
-                  force: true
-                  skip-fetch: true
-                  checkout-orphan: true
+              run: |
+                  git config user.name "[actions] generate-badges"
+                  git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+                  git checkout --orphan dist-badges
+                  git rm -rf . >/dev/null 2>&1 || true
+                  git add dist-badges/
+                  git commit -m "Update badges" || git commit --allow-empty -m "Update badges"
+                  git push origin HEAD:dist-badges --force
