@@ -12,7 +12,7 @@ container_name="intellij-idea-appimage"
 work_dir="/intellij-idea-appimage"
 
 echo "Starting container..."
-podman run --rm -dti --name "${container_name}" docker.io/library/ubuntu:20.04
+podman run --rm -dti --name "${container_name}" docker.io/library/ubuntu:22.04
 podman wait --condition=running "${container_name}"
 
 echo "Installing dependencies..."
@@ -26,8 +26,8 @@ for x in "scripts" "templates"; do
 done
 podman exec "${container_name}" find "${work_dir}/scripts" -type f -name "*.sh" -exec chmod +x {} \;
 
-echo "Starting build..."
-podman exec "${container_name}" "${work_dir}/scripts/build.sh" "${app_version}"
+# Ensure ARCH env for appimagetool
+podman exec "${container_name}" bash -lc "export ARCH=x86_64; ${work_dir}/scripts/build.sh ${app_version}"
 
 echo "Copying build artifacts..."
 podman cp "${container_name}:${work_dir}/dist" "${dist_dir}"
