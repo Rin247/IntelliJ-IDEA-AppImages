@@ -2,7 +2,7 @@ name: Release
 
 on:
     schedule:
-        - cron: 0 0 * * 0,4
+        - cron: 0 0 * * 0
 
     workflow_dispatch:
         inputs:
@@ -64,7 +64,12 @@ jobs:
                   replacesArtifacts: true
                   makeLatest: true
 
-    generate-badge:
-        needs: [release]
-        if: always()
-        uses: ./.github/workflows/badges.yml
+            - name: 🗑️ Delete old releases
+              if: ${{ env.X_REQUIRES_BUILD == 'yes' }}
+              env:
+                  GITHUB_TOKEN: ${{ github.token }}
+              run: |
+                  tags=$(gh release list --limit 1000 --json tagName,publishedAt --jq 'sort_by(.publishedAt) | reverse | .[1:] | .[].tagName')
+                  for tag in $tags; do
+                    gh release delete "$tag" --yes
+                  done

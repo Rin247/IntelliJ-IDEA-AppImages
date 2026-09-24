@@ -1,8 +1,6 @@
 # IntelliJ IDEA AppImages
 
-[![Latest](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FRin247%2Fintellij-idea-appimages%2Fdist-badges%2Fbadge-latest.json)](https://github.com/Rin247/intellij-idea-appimages/releases/latest)
 [![Release](https://github.com/Rin247/intellij-idea-appimages/actions/workflows/release.yml/badge.svg)](https://github.com/Rin247/intellij-idea-appimages/actions/workflows/release.yml)
-[![Badges](https://github.com/Rin247/intellij-idea-appimages/actions/workflows/badges.yml/badge.svg)](https://github.com/Rin247/intellij-idea-appimages/actions/workflows/badges.yml)
 
 Packages [IntelliJ IDEA Community](https://www.jetbrains.com/idea) as AppImages.
 
