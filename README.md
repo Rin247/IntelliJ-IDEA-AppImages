@@ -4,7 +4,7 @@
 
 Packages [IntelliJ IDEA Community](https://www.jetbrains.com/idea) as AppImages.
 
-AppImages are directly created from `.tar.gz` builds and are not decompiled or modified. AppImages are compiled in Ubuntu 22.04 (minimum). Only the latest stable release of IntelliJ IDEA Community is packaged.
+AppImages are directly created from `.tar.gz` builds and are not decompiled or modified. AppImages are compiled in Ubuntu 24.04 (minimum). Only the latest stable release of IntelliJ IDEA Community is packaged.
 
 ## Supported Builds
 
@@ -18,7 +18,7 @@ Can be directly downloaded from Github Releases and integrated using tools like 
 
 ## Minimum distribution support
 
-This project builds AppImages using an Ubuntu 22.04 (jammy) chroot/container as the minimum supported build environment. Support for older distributions (Ubuntu 20.04 and earlier) has been removed.
+This project builds AppImages using an Ubuntu 24.04 (noble) chroot/container as the minimum supported build environment. Support for older distributions (Ubuntu 22.04 and earlier) has been removed.
 
 ## Arch Linux
 
@@ -29,4 +29,4 @@ Two options are provided for Arch users:
 
 ## Building locally
 
-There are helper scripts in `scripts/` that build AppImages in a containerized environment. The `scripts/build-podman.sh` script uses an Ubuntu 22.04 container by default to produce AppImages. See the scripts for details.
+There are helper scripts in `scripts/` that build AppImages in a containerized environment. The `scripts/build-podman.sh` script uses an Ubuntu 24.04 container by default to produce AppImages. See the scripts for details.
